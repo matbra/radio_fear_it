@@ -33,6 +33,8 @@ cd libtool-2.4.6
 make
 make install DESTDIR=$OPENSHIFT_DATA_DIR
 
+alias aclocal-1.15='aclocal'
+
 ln -s /usr/bin/aclocal ${OPENSHIFT_DATA_DIR}bin/aclocal-1.15
 
 # install bison
