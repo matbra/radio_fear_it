@@ -1,0 +1,18 @@
+[submodule "src/python/gst-python"]
+	path = src/python/gst-python
+	url = git://anongit.freedesktop.org/gstreamer/gst-python
+[submodule "src/python/gstreamer"]
+	path = src/python/gstreamer
+	url = git://anongit.freedesktop.org/gstreamer/gstreamer
+[submodule "src/python/gst-plugins-base"]
+	path = src/python/gst-plugins-base
+	url = git://anongit.freedesktop.org/gstreamer/gst-plugins-base
+[submodule "src/python/gst-plugins-good"]
+	path = src/python/gst-plugins-good
+	url = git://anongit.freedesktop.org/gstreamer/gst-plugins-good
+[submodule "src/python/gst-plugins-ugly"]
+	path = src/python/gst-plugins-ugly
+	url = git://anongit.freedesktop.org/gstreamer/gst-plugins-ugly
+[submodule "src/python/gst-plugins-bad"]
+	path = src/python/gst-plugins-bad
+	url = git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
