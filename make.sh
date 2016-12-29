@@ -12,8 +12,8 @@ cd autoconf-2.69
 make
 make install DESTDIR=$OPENSHIFT_DATA_DIR
 
-export PATH=${OPENSHIFT_DATA_DIR}bin:$PATH
-export LD_LIBRARY_PATH=${OPENSHIFT_DATA_DIR}lib
+export PATH=$OPENSHIFT_DATA_DIR/usr/local/bin:$PATH
+export LD_LIBRARY_PATH=$OPENSHIFT_DATA_DIR/var/lib
 
 # install automake
 cd $OPENSHIFT_TMP_DIR
