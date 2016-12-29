@@ -37,7 +37,9 @@ cd libtool-2.4.6
 make
 make install DESTDIR=$DIR_OUTPUT
 
-alias aclocal-1.15='aclocal'
+# install python
+
+#alias aclocal-1.15='aclocal'
 
 #ln -s /usr/bin/aclocal ${$DIR_OUTPUT}bin/aclocal-1.15
 
