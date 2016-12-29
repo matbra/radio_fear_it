@@ -28,3 +28,6 @@
 [submodule "src/bison"]
 	path = src/bison
 	url = git://git.savannah.gnu.org/bison.git
+[submodule "src/m4"]
+	path = src/m4
+	url = http://git.savannah.gnu.org/r/m4.git
