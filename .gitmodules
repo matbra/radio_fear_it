@@ -16,3 +16,12 @@
 [submodule "src/python/gst-plugins-bad"]
 	path = src/python/gst-plugins-bad
 	url = git://anongit.freedesktop.org/gstreamer/gst-plugins-bad
+[submodule "src/sphinx/sphinxbase"]
+	path = src/sphinx/sphinxbase
+	url = https://github.com/cmusphinx/sphinxbase.git
+[submodule "src/sphinx/pocketsphinx"]
+	path = src/sphinx/pocketsphinx
+	url = https://github.com/cmusphinx/pocketsphinx.git
+[submodule "src/sphinx/pocketsphinx-python"]
+	path = src/sphinx/pocketsphinx-python
+	url = https://github.com/cmusphinx/pocketsphinx-python.git
