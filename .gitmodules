@@ -25,3 +25,6 @@
 [submodule "src/sphinx/pocketsphinx-python"]
 	path = src/sphinx/pocketsphinx-python
 	url = https://github.com/cmusphinx/pocketsphinx-python.git
+[submodule "src/bison"]
+	path = src/bison
+	url = git://git.savannah.gnu.org/bison.git
