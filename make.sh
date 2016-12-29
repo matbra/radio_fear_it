@@ -12,6 +12,9 @@ cd autoconf-2.69
 make
 make install DESTDIR=$OPENSHIFT_DATA_DIR
 
+export PATH=$OPENSHIFT_DATA_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$OPENSHIFT_DATA_DIR/lib
+
 # install automake
 cd $OPENSHIFT_TMP_DIR
 wget http://ftp.gnu.org/gnu/automake/automake-1.15.tar.gz
@@ -29,5 +32,7 @@ cd libtool-2.4.6
 ./configure --prefix=$OPENSHIFT_DATA_DIR
 make
 make install DESTDIR=$OPENSHIFT_DATA_DIR
+
+ln -s /usr/bin/aclocal $OPENSHIFT_DATA_DIR/bin/aclocal-1.15
 
 # install bison
