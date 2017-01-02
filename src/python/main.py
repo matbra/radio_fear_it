@@ -31,14 +31,39 @@ url = "http://dradio_mp3_dlf_m.akacast.akamaistream.net/7/249/142684/v1/gnl.akac
 
 # data = u.read(8192)
 
+def find_frame_start(buffer):
+    buf_conv = struct.unpack_from("B" * len(buffer), buffer)
+
+    if 255 in buf_conv:
+        idx_start = buf_conv.index(255)
+    else:
+        idx_start = None
+
+    return idx_start
+
 def printurl(url):
     import requests
-    dec = Decoder(CHUNK_SIZE)
+    dec = Decoder(20*CHUNK_SIZE)
 
     remote_mp3 = requests.get(url, stream=True)
 
-    for chunk in dec.decode(remote_mp3):
-        print(chunk)
+    # open the wave writer
+    ww = wave.open("tempout.wav", 'wb')
+    ww.setnchannels(2)
+    ww.setframerate(44100)
+    ww.setsampwidth(2)
+
+    # dec.de
+    last = bytearray([])
+    for chunk in remote_mp3.iter_content(chunk_size=CHUNK_SIZE):
+        chunk = chunk[find_frame_start(chunk):]
+        decoded, last = dec.decode(chunk,last)
+
+
+
+        ww.writeframes(decoded)
+
+
 
 def streamurl(url):
     scheme, netloc, path, params, query, fragment = urlparse(url)
@@ -82,18 +107,38 @@ def streamurl(url):
 
     f = open('testout.mp3', 'wb')
 
+    def get_chunk():
+        yield u.read(CHUNK_SIZE)
+
+    # find the start index
+    idx_start = None
+    while idx_start is None:
+        n = u.read(CHUNK_SIZE)
+        idx_start = find_frame_start(n)
+
+
+
+
+    chunk = n[idx_start:]
+    print(idx_start)
+
+        # chunk = n[find_frame_start(n):]
+    #
     # print(file.readline())
     last = bytearray([])
     while True:
-        n = u.read(CHUNK_SIZE)
+
         # buffy = mf.read(CHUNK_SIZE)#.decode('utf-8')
         # buffy = file.read()
 
-        buffy= dec.decode(n, last)
+        # chunk = n[idx_start:]
+        decoded, last = dec.decode(chunk, last)
+        idx_start = 0
+        chunk = u.read(CHUNK_SIZE)
 
 
 
-        if buffy is None:
+        if chunk is None:
             break
 
 
@@ -104,7 +149,7 @@ def streamurl(url):
         # print(struct.unpack('h', buffy))
         # print(struct.unpack_from('!h', buffy, 100))
         # write("tempout.wav", fs=mf.samplerate(), )
-        # ww.writeframes(buffy)
+        ww.writeframes(decoded)
 
         # f.write(n)
 
