@@ -36,10 +36,15 @@ def find_frame_start(buffer):
 
     if 255 in buf_conv:
         idx_start = buf_conv.index(255)
-    else:
-        idx_start = None
+        if buf_conv[idx_start+1] >= 224:
+        # if buf_conv[idx_start+1:idx_start+2] & 0b11100000
+            return idx_start
+        else:
+            return None
+    # else:
+    #     idx_start = None
 
-    return idx_start
+    # return idx_start
 
 def printurl(url):
     import requests
@@ -101,7 +106,7 @@ def streamurl(url):
 
     # open the wave writer
     ww = wave.open("tempout.wav", 'wb')
-    ww.setnchannels(2)
+    ww.setnchannels(1)
     ww.setframerate(44100)
     ww.setsampwidth(2)
 
@@ -112,9 +117,24 @@ def streamurl(url):
 
     # find the start index
     idx_start = None
-    while idx_start is None:
-        n = u.read(CHUNK_SIZE)
-        idx_start = find_frame_start(n)
+    # bla = 0
+    while True:
+        while idx_start is None:
+            n = u.read(CHUNK_SIZE)
+            idx_start = find_frame_start(n)
+            # bla = dec.get_tag_length(n[idx_start:])
+        print(idx_start)
+
+        try:
+            last = bytearray([])
+            chunk = n[idx_start:]
+            decoded, last = dec.decode(chunk, last)
+            break
+        except:
+            print("new try")
+            idx_start = None
+            pass
+
 
 
 
@@ -133,7 +153,7 @@ def streamurl(url):
 
         # chunk = n[idx_start:]
         decoded, last = dec.decode(chunk, last)
-        idx_start = 0
+        # idx_start = 0
         chunk = u.read(CHUNK_SIZE)
 
 
@@ -149,7 +169,8 @@ def streamurl(url):
         # print(struct.unpack('h', buffy))
         # print(struct.unpack_from('!h', buffy, 100))
         # write("tempout.wav", fs=mf.samplerate(), )
-        ww.writeframes(decoded)
+        left = "".join([str(decoded[_:_+2]) for _ in range(0, len(decoded), 4)])
+        ww.writeframes(bytearray(left))
 
         # f.write(n)
 
