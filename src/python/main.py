@@ -62,8 +62,8 @@ def streamurl(url):
         chunk = u.read(CHUNK_SIZE)
 
         # extract the left channel (wave interleaved format)
-        left = "".join([str(decoded[_:_+2]) for _ in range(0, len(decoded), 4)])
-        ww.writeframes(bytearray(left))
+        left = b"".join([decoded[_:_+2] for _ in range(0, len(decoded), 4)])
+        ww.writeframes(left)
 
         if chunk == "":
             print("stream ended.")
